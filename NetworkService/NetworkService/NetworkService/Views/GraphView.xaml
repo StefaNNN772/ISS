@@ -1,0 +1,268 @@
+﻿<UserControl x:Class="NetworkService.Views.GraphView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="450">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle
+            Grid.Row="0"
+            StrokeThickness="10"
+            Width="400"
+            Height="300" Margin="25,0,25,157">
+            
+        </Rectangle>
+        <Canvas
+            Margin="78,108,78,140"
+            Background="Transparent"
+            Grid.Row="0"
+            ToolTip="Graph with last 5 measured values">
+
+            <Line X1="20" Y1="20"
+                  X2="20" Y2="210"
+                  StrokeThickness="3"
+                  Stroke="Black"/>
+            <Line X1="19" Y1="210"
+                  X2="280" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="3"/>
+
+            <Line X1="70" Y1="20"
+                  X2="70" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="2"/>
+            <Line X1="120" Y1="20"
+                  X2="120" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="2"/>
+            <Line X1="170" Y1="20"
+                  X2="170" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="2"/>
+            <Line X1="220" Y1="20"
+                  X2="220" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="2"/>
+            <Line X1="270" Y1="20"
+                  X2="270" Y2="210"
+                  Stroke="Black"
+                  StrokeThickness="2"/>
+
+            <!--Connection line-->
+            <Path
+                Stroke="Black"
+                StrokeThickness="3">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="{Binding StartPoint}">
+                            <LineSegment
+                                x:Name="LinePoint_1"
+                                Point="{Binding LinePoint_1}"/>
+                            <LineSegment 
+                                x:Name="LinePoint_2"
+                                Point="{Binding LinePoint_2}"/>
+                            <LineSegment
+                                x:Name="LinePoint_3"
+                                Point="{Binding LinePoint_3}"/>
+                            <LineSegment 
+                                x:Name="LinePoint_4"
+                                Point="{Binding LinePoint_4}"/>
+                            <LineSegment
+                                x:Name="LinePoint_5"
+                                Point="{Binding LinePoint_5}"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <!--Graph nodes connected with a line-->
+            <Ellipse 
+                x:Name="Ellipse_1"
+                Margin="{Binding MarginPoint_1}"
+                Width="30"
+                Height="30"
+                Fill="{Binding NodeColor_1}"/>
+
+            <Ellipse 
+                x:Name="Ellipse_2"
+                Margin="{Binding MarginPoint_2}"
+                Width="30"
+                Height="30"
+                Fill="{Binding NodeColor_2}"/>
+
+            <Ellipse 
+                x:Name="Ellipse_3"
+                Margin="{Binding MarginPoint_3}"
+                Width="30"
+                Height="30"
+                Fill="{Binding NodeColor_3}"/>
+            <Ellipse 
+                x:Name="Ellipse_4"
+                Margin="{Binding MarginPoint_4}"
+                Width="30"
+                Height="30"
+                Fill="{Binding NodeColor_4}"/>
+            <Ellipse 
+                x:Name="Ellipse_5"
+                Margin="{Binding MarginPoint_5}"
+                Width="30"
+                Height="30"
+                Fill="{Binding NodeColor_5}"/>
+
+            <!--Text blocks that write out the current values-->
+            <TextBlock
+                Text="{Binding NodeText_1}"
+                Margin="{Binding MarginPoint_1}"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                Padding="6"
+                Foreground="White"
+                Background="Transparent"/>
+
+            <TextBlock
+                Text="{Binding NodeText_2}"
+                Margin="{Binding MarginPoint_2}"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                Padding="6"
+                Foreground="White"
+                Background="Transparent"/>
+
+            <TextBlock
+                Text="{Binding NodeText_3}"
+                Margin="{Binding MarginPoint_3}"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                Padding="6"
+                Foreground="White"
+                Background="Transparent"/>
+
+            <TextBlock
+                Text="{Binding NodeText_4}"
+                Margin="{Binding MarginPoint_4}"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                Padding="6"
+                Foreground="White"
+                Background="Transparent"/>
+
+            <TextBlock
+                Text="{Binding NodeText_5}"
+                Margin="{Binding MarginPoint_5}"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                Padding="6"
+                Foreground="White"
+                Background="Transparent"/>
+
+
+            <TextBlock
+                Text="{Binding Time_1}"
+                Margin="30 230"
+                Width="40"
+                FontSize="12"
+                Foreground="{StaticResource TextBrush}"/>
+            <TextBlock
+                Text="{Binding Time_2}"
+                Margin="80 230"
+                Width="40"
+                FontSize="12"
+                Foreground="{StaticResource TextBrush}"/>
+            <TextBlock
+                Text="{Binding Time_3}"
+                Margin="130 230"
+                Width="40"
+                FontSize="12"
+                Foreground="{StaticResource TextBrush}"/>
+            <TextBlock
+                Text="{Binding Time_4}"
+                Margin="180 230"
+                Width="40"
+                FontSize="12"
+                Foreground="{StaticResource TextBrush}"/>
+            <TextBlock
+                Text="{Binding Time_5}"
+                Margin="230 230"
+                Width="40"
+                FontSize="12"
+                Foreground="{StaticResource TextBrush}"/>
+
+        </Canvas>
+
+        <StackPanel
+            Orientation="Vertical"
+            Grid.Row="1">
+            <TextBlock
+                Text="Select entity:"
+                TextAlignment="Center"
+                Foreground="{StaticResource TextBrush}"
+                FontSize="25"
+                TextWrapping="WrapWithOverflow"
+                Margin="0 50 0 20" Width="314" Height="81">
+            </TextBlock>
+
+            <ComboBox
+                x:Name="SelectionComboBox"
+                Width="250"
+                Height="40"
+                Margin="0 -40 0 0"
+                Grid.Row="1"
+                ItemsSource="{Binding ReactorTemperatures}"
+                SelectedItem="{Binding SelectedTemperature}"
+                Style="{StaticResource RoundComboBoxStyle}"
+                ToolTip="Select entity">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+                                Foreground="{StaticResource TextBrush}"
+                                Text="ID :"
+                                Margin="0 -3 0 0"
+                                FontSize="20"
+                                Padding="3"/>
+                            <TextBlock 
+                                Foreground="{StaticResource TextBrush}"
+                                Text="{Binding ID}"
+                                Margin="0 -3 0 0"
+                                FontSize="20"
+                                Padding="3"/>
+                            <TextBlock
+                                Foreground="{StaticResource TextBrush}"
+                                Text="{Binding Name}"
+                                Margin="10 -3 0 0"
+                                FontSize="20"
+                                Padding="3"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+
+            </ComboBox>
+
+
+        </StackPanel>
+    </Grid>
+</UserControl>

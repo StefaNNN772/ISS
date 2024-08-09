@@ -1,0 +1,834 @@
+﻿<UserControl x:Class="NetworkService.Views.DisplayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:model="clr-namespace:NetworkService.Model"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             Width="445"
+             Height="780">
+
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="487.5"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+
+        <!--Canvases grid-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ItemsControl
+                x:Name="LinesItemsControl"
+                Grid.Row="0" Grid.Column="0"
+                Grid.RowSpan="4" Grid.ColumnSpan="3" 
+                Panel.ZIndex="200"
+                ItemsSource="{Binding LinesToDisplay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <!--Number 0-->
+            <DockPanel
+                Grid.Row="0" Grid.Column="0">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[0]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="0"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="0"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    VerticalAlignment="Bottom"
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[0].ID"/>
+                            <Binding Path="EntityInfo[0].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="0">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                    Grid.Row="0" Grid.Column="0"
+                    BorderBrush="{Binding BorderBrushCollection[0]}"
+                    BorderThickness="3">
+            </Border>
+
+            <!--Number 1-->
+            <DockPanel
+                Grid.Row="0" Grid.Column="1">
+                    <ContentControl 
+                        DockPanel.Dock="Bottom"
+                        Width="110"
+                        Height="100"
+                        Margin="10 0"
+                        Content="{Binding Path=CanvasCollection[1]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="1"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="1"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[1].ID"/>
+                            <Binding Path="EntityInfo[1].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="1">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="0" Grid.Column="1"
+                BorderBrush="{Binding BorderBrushCollection[1]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 2-->
+            <DockPanel
+                Grid.Row="0" Grid.Column="2">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[2]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="2"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="2"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                   VerticalAlignment="Bottom"
+                   Width="120"
+                   Height="20"
+                   FontSize="15"
+                   Background="{StaticResource TextBackgroundGradientBrush}"
+                   Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[2].ID"/>
+                            <Binding Path="EntityInfo[2].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="2">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="0" Grid.Column="2"
+                BorderBrush="{Binding BorderBrushCollection[2]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 3-->
+            <DockPanel
+                Grid.Row="1" Grid.Column="0">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[3]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="3"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="3"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[3].ID"/>
+                            <Binding Path="EntityInfo[3].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="3">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="1" Grid.Column="0"
+                BorderBrush="{Binding BorderBrushCollection[3]}"
+                BorderThickness="2">
+            </Border>
+
+            <!--Number 4-->
+            <DockPanel
+                Grid.Row="1" Grid.Column="1">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[4]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="4"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="4"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[4].ID"/>
+                            <Binding Path="EntityInfo[4].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="4">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="1" Grid.Column="1"
+                BorderBrush="{Binding BorderBrushCollection[4]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 5-->
+            <DockPanel
+                Grid.Row="1" Grid.Column="2">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 10 10 -10"
+                    Content="{Binding Path=CanvasCollection[5]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="5"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="5"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[5].ID"/>
+                            <Binding Path="EntityInfo[5].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="5">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="1" Grid.Column="2"
+                BorderBrush="{Binding BorderBrushCollection[5]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 6-->
+            <DockPanel
+                Grid.Row="2" Grid.Column="0">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[6]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="6"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="6"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[6].ID"/>
+                            <Binding Path="EntityInfo[6].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="6">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="2" Grid.Column="0"
+                BorderBrush="{Binding BorderBrushCollection[6]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 7-->
+            <DockPanel
+                Grid.Row="2" Grid.Column="1">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[7]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="7"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="7"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[7].ID"/>
+                            <Binding Path="EntityInfo[7].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="7">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="2" Grid.Column="1"
+                BorderBrush="{Binding BorderBrushCollection[7]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 8-->
+            <DockPanel
+                Grid.Row="2" Grid.Column="2">
+                <ContentControl
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[8]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="8"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="8"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[8].ID"/>
+                            <Binding Path="EntityInfo[8].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="8">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="2" Grid.Column="2"
+                BorderBrush="{Binding BorderBrushCollection[8]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 9-->
+            <DockPanel
+                Grid.Row="3" Grid.Column="0">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[9]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="9"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="9"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[9].ID"/>
+                            <Binding Path="EntityInfo[9].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="9">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="3" Grid.Column="0"
+                BorderBrush="{Binding BorderBrushCollection[9]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 10-->
+            <DockPanel
+                Grid.Row="3" Grid.Column="1">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[10]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="10"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="10"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0} : {1}">
+                            <Binding Path="EntityInfo[10].ID"/>
+                            <Binding Path="EntityInfo[10].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="10">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="3" Grid.Column="1"
+                BorderBrush="{Binding BorderBrushCollection[10]}"
+                BorderThickness="3">
+            </Border>
+
+            <!--Number 11-->
+            <DockPanel
+                Grid.Row="3" Grid.Column="2">
+                <ContentControl 
+                    DockPanel.Dock="Bottom"
+                    Width="110"
+                    Height="100"
+                    Margin="10 0"
+                    Content="{Binding Path=CanvasCollection[11]}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:InvokeCommandAction Command="{Binding DropEntityOnCanvasCommand}" CommandParameter="11"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownCommand}" CommandParameter="11"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ContentControl>
+                <TextBlock
+                    Width="120"
+                    Height="20"
+                    FontSize="15"
+                    Background="{StaticResource TextBackgroundGradientBrush}"
+                    Foreground="{StaticResource TextBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}  {0}  : {1}">
+                            <Binding Path="EntityInfo[11].ID"/>
+                            <Binding Path="EntityInfo[11].Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button 
+                    Cursor="Hand"
+                    ToolTip="Remove Item From Grid"
+                    Background="{StaticResource ClearButtonGradientBrush}"
+                    Command="{Binding ClearCanvasCommand}"
+                    CommandParameter="11">
+                    <Button.Content>
+                        <fa5:FontAwesome 
+                            Icon="Regular_WindowClose"
+                            Width="15"
+                            Height="Auto"
+                            Foreground="{StaticResource TextBrush}"
+                            FontSize="12"/>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <Border
+                Grid.Row="3" Grid.Column="2"
+                BorderBrush="{Binding BorderBrushCollection[11]}"
+                BorderThickness="3">
+            </Border>
+
+        </Grid>
+
+        <ScrollViewer
+            Grid.Row="0"
+            VerticalScrollBarVisibility="Auto">
+
+            <Grid
+            Grid.Row="0"
+            Panel.ZIndex="1000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Foreground="{StaticResource TextBrush}"
+                    FontSize="15"
+                    Background="{StaticResource PrimaryBrush}"
+                    Content="RTD:"/>
+                <ListView
+                    x:Name="ListView1"
+                    Grid.Row="1"
+                    Background="{StaticResource PrimaryDarkBrush}"
+                    ItemsSource="{Binding Categories[0].ReactorTemperatures}"
+                    d:ItemsSource="{d:SampleData ItemCount=2}"
+                    SelectedItem="{Binding Path=SelectedEntity, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:ReactorTemperature}">
+                            <StackPanel 
+                                Orientation="Horizontal">
+                                <Image 
+                                    Source="{Binding EntityType.ImagePath}"
+                                    Width="40"
+                                    Height="40"/>
+                                <TextBlock 
+                                    Text="{Binding Name}" 
+                                    VerticalAlignment="Center" 
+                                    FontSize="18"
+                                    Foreground="{StaticResource TextBrush}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                               CommandParameter="{Binding ElementName=ListView1}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ListView>
+
+                <Label
+                    Grid.Row="2"
+                    Foreground="{StaticResource TextBrush}"
+                    Content="TermoSprega:"
+                    FontSize="15"
+                    Background="{StaticResource PrimaryBrush}"/>
+
+                <ListView
+                x:Name="ListView2"
+                Grid.Row="3"
+                    Background="{StaticResource PrimaryDarkBrush}"
+                ItemsSource="{Binding Categories[1].ReactorTemperatures}"
+                d:ItemsSource="{d:SampleData ItemCount=2}"
+                SelectedItem="{Binding Path=SelectedEntity, Mode=TwoWay}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:ReactorTemperature}">
+                            <StackPanel 
+                                Orientation="Horizontal">
+                                <Image 
+                                    Source="{Binding EntityType.ImagePath}"
+                                    Width="40"
+                                    Height="40"/>
+                                <TextBlock 
+                                    Text="{Binding Name}" 
+                                    VerticalAlignment="Center" 
+                                    FontSize="18"
+                                    Foreground="{StaticResource TextBrush}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                               CommandParameter="{Binding ElementName=ListView2}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding MouseLeftButtonUpCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ListView>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
